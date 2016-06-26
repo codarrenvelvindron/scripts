@@ -7,7 +7,7 @@ sed 's/, /\n/g' "${file}clean" | sort | uniq > "${file}uniq"
 #then we remove exited
 sed -i '/+++ exited with 0 +++/d' "${file}uniq"
 sed -i '/+++ exited with 1 +++/d' "${file}uniq"
-#comma separated haha
+#comma separate
 sed -n -e 'H;${x;s/\n/,/g;s/^,//;p;}' "${file}uniq" > "${file}comma"
 #remove whitespaces
 sed 's/ //g' "${file}comma" > "${file}final"
