@@ -5,7 +5,7 @@ tempdir="$HOME/Downloads/openssl1.1.1_source_files"
 archive="$tempdir/openssl-1.1.1-pre2"
 libraries="$dir/lib/"
 bin="$dir/bin/openssl"
-: '
+
 echo "!!!1.Creating temp directories!!!"
 sudo mkdir -p $tempdir
 sudo mkdir -p $dir
@@ -26,7 +26,7 @@ echo "!!!9.Make install Done!!!"
 echo "!!!10.Link libraries!!!"
 echo "export LD_LIBRARY_PATH=$libraries"
 export LD_LIBRARY_PATH=$libraries
-'
+
 echo "Your OpenSSL 1.1.1 pre2 is installed in $dir"
 }
 install
