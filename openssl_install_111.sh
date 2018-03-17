@@ -5,6 +5,7 @@ tempdir="$HOME/Downloads/openssl1.1.1_source_files"
 archive="$tempdir/openssl-1.1.1-pre2"
 libraries="$dir/lib/"
 bin="$dir/bin/openssl"
+opt_tls="enable-tls1_3"
 
 echo "!!!1.Creating temp directories!!!"
 sudo mkdir -p $tempdir
@@ -13,6 +14,8 @@ echo "Install directory: $dir"
 echo "Temporary directory: $tempdir"
 cd $tempdir && sudo wget https://www.openssl.org/source/openssl-1.1.1-pre2.tar.gz
 echo "!!!2.Goto Tempdir and 3.Downloading setup!!!"
+echo "!!!3.5. running make distclean on temp directory"
+cd $tempdir && sudo make distclean
 echo "!!!4.Extracting files!!!"
 cd $tempdir && sudo tar -xvzf openssl-1.1.1-pre2.tar.gz
 echo "!!!5.Opening install dir!!!"
@@ -20,7 +23,7 @@ echo "!!!6.Setting compilation flags!!!"
 echo "Home Directory: $HOME"
 echo "Openssl install path: $dir"
 echo "!!!7.Configure!!!"
-cd $archive && sudo ./config --prefix="$dir" --openssldir="$dir" enable-tls1_3 && sudo make && sudo make install
+cd $archive && sudo ./config --prefix="$dir" --openssldir="$dir" $opt_tls && sudo make && sudo make install
 echo "!!!8.Make Done!!!"
 echo "!!!9.Make install Done!!!"
 echo "!!!10.Link libraries!!!"
