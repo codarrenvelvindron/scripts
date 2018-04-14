@@ -52,6 +52,8 @@ echo "*****OS detected: $source_opts_os_deb\n"
 echo "*****Distribution detected: $source_opts_codename\n"
 echo "*****Version detected: $source_opts_version\n"
 echo "*****Downloading Oracle Public Keys\n"
+echo "*****Installing compat module for https\n"
+sudo apt-get install apt-transport-https
 echo "*****Adding Oracle VB sources\n"
 
 if [ $source_opts_os_deb = ubuntu ]; then
