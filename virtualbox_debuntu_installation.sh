@@ -20,8 +20,9 @@ debian_src_sec="deb-src http://security.debian.org/debian-security/"
 
 debian_updates="$source_opts_os_deb $source_opts_codename_deb-updates main"
 debian_updates_main="$source_opts_os_deb $source_opts_codename_deb main"
+debian_sec_main=" $source_opts_codename_deb/updates main"
+echo $debian_sec_main
 
-echo "$debian_updates"
 if [ $source_opts_os_deb = debian ]; then
   if (( $(awk 'BEGIN {print ("'$source_opts_version'" < "'$debian_new_ver'")}') ));
   then
