@@ -80,6 +80,6 @@ fi
 echo "*****Updating system"
 sudo apt-get update
 echo "*****Installing Virtualbox"
-sudo apt-get install virtualbox
+sudo apt-get install virtualbox-5.2
 sudo apt-get install virtualbox-guest-additions-iso
 echo "**Virtualbox installation completed!"
