@@ -63,7 +63,14 @@ else
   echo "*****Do you wish to add additional sources?(Yes/No) No-Default should work. If not, rerun and say yes\n"
   read ans
   if [ "$ans" = Y ]; then
-    echo "adding debian main, update and sec repos to sources.list"
+    echo ">> adding debian main, update and sec repos to sources.list\n"
+    echo "$full_deb_sec_main" >> /etc/apt/sources.list
+    echo "$full_deb_sec_src" >> /etc/apt/sources.list
+    echo "$full_deb_main" >> /etc/apt/sources.list
+    echo "$full_deb_src" >> /etc/apt/sources.list
+    echo "$full_deb_upd_main" >> /etc/apt/sources.list
+    echo "$full_deb_upd_src" >> /etc/apt/sources.list
+    echo "<< done.."
   else
     echo "Nothing to do, proceeding"
   fi
