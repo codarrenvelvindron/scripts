@@ -18,10 +18,12 @@ debian_src_repo="deb-src http://deb.debian.org/"
 debian_sec_repo="deb http://security.debian.org/debian-security/"
 debian_src_sec="deb-src http://security.debian.org/debian-security/"
 
-debian_updates="$source_opts_os_deb $source_opts_codename_deb-updates main"
-debian_updates_main="$source_opts_os_deb $source_opts_codename_deb main"
-debian_sec_main="$source_opts_codename_deb/updates main"
-echo "$debian_src_repo $debian_sec_main"
+full_deb_sec_main="$debian_src_repo $debian_sec_main"
+full_deb_sec_src="$debian_src_sec $debian_sec_main"
+full_deb_main="$debian_main_repo$source_opts_os_deb $source_opts_codename_deb main"
+full_deb_src="$debian_src_repo$source_opts_os_deb $source_opts_codename_deb main"
+full_deb_upd_main="$debian_main_repo$source_opts_os_deb-updates main"
+full_deb_upd_src="$debian_src_repo$source_opts_os_deb $source_opts_codename_deb main"
 
 if [ $source_opts_os_deb = debian ]; then
   if (( $(awk 'BEGIN {print ("'$source_opts_version'" < "'$debian_new_ver'")}') ));
@@ -40,7 +42,6 @@ else
     echo "**We have detected a version less than 16.04\n"
     echo "adding keys"
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-
   else
     echo "**You are using 16.04 or later\n"
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
@@ -51,12 +52,21 @@ echo "*****OS detected: $source_opts_os_deb\n"
 echo "*****Distribution detected: $source_opts_codename\n"
 echo "*****Version detected: $source_opts_version\n"
 echo "*****Downloading Oracle Public Keys\n"
+echo "*****Adding Oracle VB sources\n"
+
 if [ $source_opts_os_deb = ubuntu ]; then
   echo "*****Line to add to /etc/apt/sources.list: $source$source_opts_os_deb $source_opts_codename_ubu $source_comp\n"
   echo "$source$source_opts_os_deb $source_opts_codename_ubu $source_comp" >> /etc/apt/sources.list 
 else
   echo "*****Line to add to /etc/apt/sources.list: $source$source_opts_os_deb $source_opts_codename_deb $source_comp\n"
   echo "$source$source_opts_os_deb $source_opts_codename_deb $source_comp" >> /etc/apt/sources.list
+  echo "*****Do you wish to add additional sources?(Yes/No) No-Default should work. If not, rerun and say yes\n"
+  read ans
+  if [ "$ans" = Y ]; then
+    echo "adding debian main, update and sec repos to sources.list"
+  else
+    echo "Nothing to do, proceeding"
+  fi
 fi
 echo "*****Updating system"
 sudo apt-get update
